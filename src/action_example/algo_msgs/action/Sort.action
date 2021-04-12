@@ -1,0 +1,8 @@
+# Request
+std_msgs/Int32MultiArray random_sequence
+---
+# Result
+std_msgs/Int32MultiArray sorted_sequence 
+---
+# Feedback
+std_msgs/Int32MultiArray partial_sequence
