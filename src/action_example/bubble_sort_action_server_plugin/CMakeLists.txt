@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(bubble_sort_action_client)
+project(bubble_sort_action_server_plugin)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -22,30 +22,30 @@ find_package(rclcpp_action REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(algo_msgs REQUIRED)
 
-add_library(bubble_sort_client SHARED
-  src/bubble_sort_client.cpp
+add_library(bubble_sort_server SHARED
+  src/bubble_sort_server.cpp
 )
-target_include_directories(bubble_sort_client PRIVATE
+target_include_directories(bubble_sort_server PRIVATE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_definitions(bubble_sort_client
-  PRIVATE "ACTION_EXAMPLE_CPP_BUILDING_DLL"
+target_compile_definitions(bubble_sort_server PRIVATE
+  "ACTION_EXAMPLE_CPP_BUILDING_DLL"
 )
 ament_target_dependencies(
-  bubble_sort_client
+  bubble_sort_server
   "rclcpp"
   "rclcpp_action"
   "rclcpp_components"
   "algo_msgs"
 )
 
-rclcpp_components_register_node(bubble_sort_client
-  PLUGIN "action_example_cpp::BubbleSortActionClient"
-  EXECUTABLE bubble_sort_action_client
+rclcpp_components_register_node(bubble_sort_server
+  PLUGIN action_example_cpp::BubbleSortActionServer
+  EXECUTABLE bubble_sort_action_server
 )
 
 install(TARGETS 
-  bubble_sort_client
+  bubble_sort_server
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
