@@ -14,4 +14,5 @@ def generate_launch_description():
         Node(package='laser_scan_publisher', executable='laser_scan_pub', output='screen'),
         Node(package='robot_state_publisher', executable='robot_state_publisher',
              output='screen', parameters=[rsp_params]),
+        Node(package='dynamic_joint_states', executable='dynamic_joint_pub', output='screen'),
     ])
