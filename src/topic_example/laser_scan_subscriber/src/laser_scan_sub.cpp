@@ -15,6 +15,7 @@ public:
 
 private:
   void scan_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
+    (void)msg;
     if(count_ % 33 == 0)
       RCLCPP_INFO(this->get_logger(), "Laser scan heartbeak alive...");
     count_++;
