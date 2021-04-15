@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<robot name="base_world" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <link name="world_frame_link"/>
+  <joint name="base_joint_fixed" type="fixed">
+    <origin rpy="0 0 0" xyz="1 1 1"/>
+    <parent link="world_frame_link"/>
+    <child link="base_frame_link"/>
+  </joint>
+  <link name="base_frame_link"/>
+  <joint name="laser_joint_fixed" type="fixed">
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0 0 1"/>
+    <parent link="world_frame_link"/>
+    <child link="laser_frame_link"/>
+  </joint>
+  <link name="laser_frame_link"/>
+</robot>
