@@ -47,15 +47,25 @@ public:
     counter_ = 0.0;
     amplitude_ = 1;
     distance_ = 0.0f;
+    loop_ = 0;
   }
 
 private:
   void timer_callback() {
     counter_ += 0.1;
-    distance_ = static_cast<float>(std::abs(amplitude_ * std::sin(counter_)));
+    loop_ += 1;
+    distance_ = static_cast<float>(std::abs(amplitude_));
 
     for (size_t i = 0; i < laser_msgs_->ranges.size(); ++i)
       laser_msgs_->ranges[i] = distance_;
+
+    int dot = 1000 / 30; // 1s per circle
+    int step = loop_ % dot;
+    int start = step * dot;
+    int end = (step + 1) * dot < (int)laser_msgs_->ranges.size() ? 
+      (step + 1) * dot : (int)laser_msgs_->ranges.size();
+    for (int i = start; i < end; ++i)
+      laser_msgs_->ranges[i] = 0;
 
     laser_msgs_->header.stamp = rclcpp::Clock().now();
     publisher_->publish(*laser_msgs_); 
@@ -66,7 +76,7 @@ private:
   std::shared_ptr<sensor_msgs::msg::LaserScan> laser_msgs_;
 
   double counter_;
-  int amplitude_;
+  int amplitude_, loop_;
   float distance_;
 };
 
