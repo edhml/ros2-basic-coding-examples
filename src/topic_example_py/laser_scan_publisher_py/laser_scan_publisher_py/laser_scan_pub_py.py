@@ -63,7 +63,7 @@ class LaserScanPublisherSim(Node):
         for i in range(int(s),int(end)):
             self.laser_msgs_.ranges[i]=0
 
-        
+        self.laser_msgs_._header.stamp= self.get_clock().now().to_msg()
         self.publisher_.publish(self.laser_msgs_)
 
             
